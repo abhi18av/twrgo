@@ -1,18 +1,32 @@
 package api
 
 import (
-	"fmt"
+	"encoding/json"
 	"github.com/imroc/req"
-	"log"
 )
 
-func ServiceInfo(towerApiEndpoint string) {
-	ENDPOINT := towerApiEndpoint + "service-info/"
-	r, err := req.Get(ENDPOINT)
-	if err != nil {
-		log.Fatal(err)
-	}
+type ServiceInfoType struct {
+	ServiceInfo struct {
+		Version   string   `json:"version"`
+		CommitID  string   `json:"commitId"`
+		AuthTypes []string `json:"authTypes"`
+		LoginPath string   `json:"loginPath"`
+		Navbar    struct {
+			Menus []struct {
+				Label string `json:"label"`
+				URL   string `json:"url"`
+			} `json:"menus"`
+		} `json:"navbar"`
+		HeartbeatInterval int `json:"heartbeatInterval"`
+	} `json:"serviceInfo"`
+}
 
-	// use req package to initiate request.
-	fmt.Println( r)
+func ServiceInfo(towerApiEndpoint string) ServiceInfoType {
+	ENDPOINT := towerApiEndpoint + "service-info/"
+	res, _ := req.Get(ENDPOINT)
+
+	var serviceInfo ServiceInfoType
+	json.Unmarshal(res.Bytes(), &serviceInfo)
+
+	return serviceInfo
 }
