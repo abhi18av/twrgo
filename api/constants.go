@@ -1,3 +1,3 @@
 package api
 
-const TOWER_API_ENDPOINT = "https://api.tower.nf/"
+const PUBLIC_TOWER_API_ENDPOINT = "https://api.tower.nf/"

@@ -7,7 +7,7 @@ import (
 
 func TestServiceInfo(t *testing.T) {
 
-	serviceInfo := ServiceInfo(TOWER_API_ENDPOINT)
+	serviceInfo := ServiceInfo(PUBLIC_TOWER_API_ENDPOINT)
 
 	assert.Equal(t, "/login", serviceInfo.ServiceInfo.LoginPath, "check login path")
 
